@@ -1,0 +1,36 @@
+﻿@inherits RadiologyReportsBase
+    <div class="sidebar sidebar-filters">
+        <form class="col">
+            <div class="form-group col">
+                <div class="row justify-content-start">
+                    <div class="col">
+                        <label for="inputMedicalRecordNumber" class="form-label" style="color:white">Medical Record Number:</label>
+                        <input type="text" class="form-control" id="inputMedicalRecordNumber" aria-describedby="helpMedicalRecordNumber" @bind="inputMedicalRecordNumber">
+                        <div id="helpMedicalRecordNumber" class="form-text"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="inputAccountNumber" class="form-label" style="color:white">Account Number:</label>
+                        <input type="text" class="form-control" id="inputAccountNumber" aria-describedby="helpAccountNumber" @bind="inputAccountNumber">
+                        <div id="helpAccountNumber" class="form-text"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="inputFirstName" class="form-label" style="color:white">First Name:</label>
+                        <input type="text" class="form-control" id="inputFirstName" aria-describedby="helpFirstName" @bind="inputFirstName">
+                        <div id="helpFirstName" class="form-text"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="inputLastName" class="form-label" style="color:white">Last Name:</label>
+                        <input type="text" class="form-control" id="inputLastName" aria-describedby="helpLastName" @bind="inputLastName">
+                        <div id="helpLastName" class="form-text"></div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" @onclick="FilterButton">Filter</button>
+        </form>
+    </div>

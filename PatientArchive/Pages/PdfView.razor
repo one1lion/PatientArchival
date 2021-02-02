@@ -1,0 +1,40 @@
+﻿@page "/PdfView/{fileID}"
+@inherits RadiologyReportsBase
+@inject PdfService pdfService
+
+<h3>PDF View</h3>
+
+@if (pdfContent == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @*A4 Sized*@
+    <iframe src="@pdfContent" width="595px" height="842px" />
+}
+
+@code {
+    string pdfContent = "";
+    byte[] pdfByteArray;
+    string filePath = "";
+
+    [Parameter]
+    public string fileID { get; set; }
+
+
+
+    protected async override Task OnInitializedAsync()
+    {
+        var singleReport = await RadiologyReportsService.GetRadiologyReport(Convert.ToInt32(fileID));
+        filePath = singleReport.FileReference;
+
+        //if(@fileID == "1")
+        //{
+        //    filePath = @"C:\Users\zachb\Desktop\Test\Test.pdf";
+        //}
+        pdfByteArray = pdfService.DownloadPDF(filePath);
+        pdfContent = "data:application/pdf;base64,";
+        pdfContent += System.Convert.ToBase64String(pdfByteArray);
+    }
+}

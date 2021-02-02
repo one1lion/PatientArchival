@@ -1,0 +1,93 @@
+﻿@page "/RadiologyReports"
+@inherits RadiologyReportsBase
+
+
+<h3 style="text-align:center; color: white; background-color:black">Radiology Reports</h3>
+
+
+@if (((isFiltered == 0) && (RadiologyReports == null)))
+{
+    @*<div class="spinner"></div>*@
+    <FilterButton></FilterButton>
+}
+else if (((isFiltered == 0) && (RadiologyReports != null)))
+{
+    <div class="row row-cols-2">
+        <FilterButton></FilterButton>
+        <div class="col">
+            <table class="table-bordered table-striped table-hover">
+                <thead>
+                    <tr>
+                    </tr>
+                    <tr class="table-primary table-th-fit" style="text-align: center; font-size:12px">
+                        @foreach (var column in columnNames)
+                        {
+                            <th>@column</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var radiologyreport in RadiologyReports)
+                    {
+                        <tr class="table-td-fit" style="font-size:12px; text-align:center">
+                            @foreach (var property in radiologyreport.GetType().GetProperties())
+                            {
+                                if (property.Name == "FileReference")
+                                {
+                                    <td><a href="/PdfView/@radiologyreport.FileId">@property.GetValue(radiologyreport)</a></td>
+                                }
+                                else
+                                {
+                                    <td>@property.GetValue(radiologyreport)</td>
+                                }
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else if (((isFiltered == 1) && (RadiologySearch == null)))
+{
+    @*<div class="spinner"></div>*@
+    <FilterButton></FilterButton>
+}
+else if (((isFiltered == 1) && (RadiologySearch != null)))
+{
+    <div class="row row-cols-2">
+        <FilterButton></FilterButton>
+        <div class="col">
+            <table class="table-bordered table-striped table-hover">
+                <thead>
+                    <tr>
+                    </tr>
+                    <tr class="table-primary table-th-fit" style="text-align: center; font-size:12px">
+                        @foreach (var column in columnNames)
+                        {
+                            <th>@column</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var radiologyreport in RadiologySearch)
+                    {
+                        <tr class="table-td-fit" style="font-size:12px; text-align:center">
+                            @foreach (var property in radiologyreport.GetType().GetProperties())
+                            {
+                                if (property.Name == "FileReference")
+                                {
+                                    <td><a href="/PdfView/@radiologyreport.FileId">@property.GetValue(radiologyreport)</a></td>
+                                }
+                                else
+                                {
+                                    <td>@property.GetValue(radiologyreport)</td>
+                                }
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
