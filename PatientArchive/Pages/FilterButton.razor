@@ -1,36 +1,58 @@
 ﻿@inherits RadiologyReportsBase
-    <div class="sidebar sidebar-filters">
-        <form class="col">
-            <div class="form-group col">
-                <div class="row justify-content-start">
-                    <div class="col">
-                        <label for="inputMedicalRecordNumber" class="form-label" style="color:white">Medical Record Number:</label>
-                        <input type="text" class="form-control" id="inputMedicalRecordNumber" aria-describedby="helpMedicalRecordNumber" @bind="inputMedicalRecordNumber">
-                        <div id="helpMedicalRecordNumber" class="form-text"></div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <label for="inputAccountNumber" class="form-label" style="color:white">Account Number:</label>
-                        <input type="text" class="form-control" id="inputAccountNumber" aria-describedby="helpAccountNumber" @bind="inputAccountNumber">
-                        <div id="helpAccountNumber" class="form-text"></div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <label for="inputFirstName" class="form-label" style="color:white">First Name:</label>
-                        <input type="text" class="form-control" id="inputFirstName" aria-describedby="helpFirstName" @bind="inputFirstName">
-                        <div id="helpFirstName" class="form-text"></div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <label for="inputLastName" class="form-label" style="color:white">Last Name:</label>
-                        <input type="text" class="form-control" id="inputLastName" aria-describedby="helpLastName" @bind="inputLastName">
-                        <div id="helpLastName" class="form-text"></div>
-                    </div>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary" @onclick="FilterButton">Filter</button>
-        </form>
+
+@inject FilterState FilterState
+
+<div class="sidebar sidebar-filters">
+  <form class="col">
+    <div class="form-group col">
+      <div class="row justify-content-start">
+        <div class="col">
+          <label for="inputMedicalRecordNumber" class="form-label" style="color:white">Medical Record Number:</label>
+          <input type="text" class="form-control" id="inputMedicalRecordNumber" aria-describedby="helpMedicalRecordNumber" @bind="FilterState.MedicalRecordNumber">
+          <div id="helpMedicalRecordNumber" class="form-text"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label for="inputAccountNumber" class="form-label" style="color:white">Account Number:</label>
+          <input type="text" class="form-control" id="inputAccountNumber" aria-describedby="helpAccountNumber" @bind="FilterState.AccountNumber">
+          <div id="helpAccountNumber" class="form-text"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label for="inputFirstName" class="form-label" style="color:white">First Name:</label>
+          <input type="text" class="form-control" id="inputFirstName" aria-describedby="helpFirstName" @bind="FilterState.FirstName">
+          <div id="helpFirstName" class="form-text"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label for="inputLastName" class="form-label" style="color:white">Last Name:</label>
+          <input type="text" class="form-control" id="inputLastName" aria-describedby="helpLastName" @bind="FilterState.LastName">
+          <div id="helpLastName" class="form-text"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label for="inputPatientIdentifier" class="form-label" style="color:white">Patient Identifier:</label>
+          <input type="text" class="form-control" id="inputPatientIdentifier" aria-describedby="helpPatientIdentifier" @bind="FilterState.PatientIdentifier">
+          <div id="helpPatientIdentifier" class="form-text"></div>
+        </div>
+      </div>
     </div>
+    <button type="button" class="btn btn-primary" @onclick="HandleFilterButtonClicked">Filter</button>
+  </form>
+</div>
+
+@code {
+  [Parameter] public EventCallback<MouseEventArgs> OnFilterButtonClicked { get; set; }
+
+  async Task HandleFilterButtonClicked(MouseEventArgs e) {
+    Console.WriteLine("Filter Button Clicked");
+
+    if(OnFilterButtonClicked.HasDelegate) {
+      await OnFilterButtonClicked.InvokeAsync(e);
+    }
+  }
+} 

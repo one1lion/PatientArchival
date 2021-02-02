@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PatientArchive.Models;
+using PatientArchive.State;
 
 namespace PatientArchive.Services
 {
@@ -10,6 +11,6 @@ namespace PatientArchive.Services
     {
         Task<IEnumerable<Direport>> GetRadiologyReports();
         Task<Direport> GetRadiologyReport(int FileID);
-        Task<IEnumerable<Direport>> RadiologySearch(string inputMedicalRecordNumber, string inputAccountNumber, string inputFirstName, string inputLastName);
+        Task<IEnumerable<Direport>> RadiologySearch(FilterState filterState);
     }
 }

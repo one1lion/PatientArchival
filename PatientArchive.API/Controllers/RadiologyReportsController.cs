@@ -57,11 +57,11 @@ namespace PatientArchive.API.Controllers
         }
 
         [HttpGet("{RadiologySearch}")]
-        public async Task<ActionResult<IEnumerable<Direport>>> RadiologySearch(string MedicalRecordNumber, string AccountNumber, string FirstName, string LastName)
+        public async Task<ActionResult<IEnumerable<Direport>>> RadiologySearch(string MedicalRecordNumber, string AccountNumber, string FirstName, string LastName, string patIdent)
         {
             try
             {
-                var result = await radiologyReportsRepository.RadiologySearch(MedicalRecordNumber, AccountNumber, FirstName, LastName);
+                var result = await radiologyReportsRepository.RadiologySearch(MedicalRecordNumber, AccountNumber, FirstName, LastName, patIdent);
 
                 if(result.Any())
                 {

@@ -25,7 +25,7 @@ namespace PatientArchive.API.Models
             return await applicationDbContext.Direports.ToListAsync();
         }
 
-        public async Task<IEnumerable<Direport>> RadiologySearch([FromQuery]string inputMedicalRecordNumber, [FromQuery]string inputAccountNumber, [FromQuery] string inputFirstName, [FromQuery] string inputLastName)
+        public async Task<IEnumerable<Direport>> RadiologySearch([FromQuery]string inputMedicalRecordNumber = default, [FromQuery]string inputAccountNumber = default, [FromQuery] string inputFirstName = default, [FromQuery] string inputLastName = default, [FromQuery] string patIdent = default)
         {
             IQueryable<Direport> query = applicationDbContext.Direports;
 
@@ -47,6 +47,11 @@ namespace PatientArchive.API.Models
             if (!string.IsNullOrEmpty(inputLastName))
             {
                 query = query.Where(report => report.LastName.Contains(inputLastName));
+            }
+
+            if (!string.IsNullOrEmpty(patIdent))
+            {
+                query = query.Where(report => report.PatientIdentifier.Contains(patIdent));
             }
             return await query.ToListAsync();
         }
